@@ -1,0 +1,111 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 10%;
+    --surface: 0 0% 15%;
+    --primary: 239 84% 67%;
+    --secondary: 187 100% 42%;
+    --text: 217 33% 98%;
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-background text-text antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  pre, code {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+/* Optimize animations */
+@layer utilities {
+  .will-change-transform {
+    will-change: transform;
+  }
+
+  .hardware-accelerated {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-background;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-surface rounded-full hover:bg-primary/50 transition-colors;
+}
+
+/* Command palette trigger */
+.cmd-palette {
+  @apply fixed inset-0 bg-black/50 backdrop-blur-sm z-50;
+}
+
+/* Blog post content styles */
+.prose {
+  @apply text-text/80;
+}
+
+.prose h1, .prose h2, .prose h3, .prose h4 {
+  @apply text-text font-semibold scroll-mt-20;
+}
+
+.prose a {
+  @apply text-primary hover:text-primary/90 no-underline;
+}
+
+.prose pre {
+  @apply bg-background rounded-lg p-4 overflow-x-auto;
+}
+
+.prose code {
+  @apply text-primary bg-background/50 px-1.5 py-0.5 rounded text-sm;
+}
+
+.prose pre code {
+  @apply bg-transparent p-0 text-text;
+}
+
+/* Loading states */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Progressive loading for images */
+.image-loading {
+  @apply blur-sm transition-all duration-300;
+}
+
+.image-loaded {
+  @apply blur-0;
+}
+
+/* Mobile optimizations */
+@media (max-width: 640px) {
+  .reduce-motion {
+    @apply motion-reduce:transform-none motion-reduce:transition-none;
+  }
+}
